@@ -23,7 +23,7 @@ How the hub coordinates agentic operations across multiple spoke clusters.
 
 ### Alert Aggregation
 
-9. A single alerts-adapter instance on the hub watches `SpokeCluster` CRs and polls all spokes' AlertManagers. See `alerts-adapter-multicluster.md` in the parent spec for details.
+9. A single alerts-adapter instance on the hub lists `SpokeCluster` CRs at startup and polls all spokes' AlertManagers. The hub operator deploys the adapter and triggers a rollout restart when the spoke target set changes (SpokeCluster label `hub.openshift.io/alert-credential-secret` added, removed, or changed, or a SpokeCluster is deleted). See `alerts-adapter-multicluster.md` in the parent spec for details.
 10. Alerts from different spokes create separate AgenticRun CRs on the hub — no cross-spoke deduplication in MVP.
 11. [PLANNED] Fleet-wide alert deduplication for identical alerts firing across multiple spokes.
 
